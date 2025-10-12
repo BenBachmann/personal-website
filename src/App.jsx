@@ -312,14 +312,23 @@ function Navbar({ active, navigateTo }) {
       }}
       className={
         isMobile
-          ? `block w-full text-left px-4 py-3 rounded-lg ${active === item.id ? "bg-[var(--backgroundAlt)] text-[var(--text)]" : "text-[var(--text)] hover:bg-[var(--backgroundAlt)]"}`
+          ? `block w-full text-left px-4 py-3 rounded-xl border transition-colors ${
+              active === item.id
+                ? "bg-[var(--backgroundAlt)] text-[var(--text)]"
+                : "text-[var(--text)] hover:bg-white/60"
+            }`
           : `rounded-full px-3 py-2 text-sm transition-all ${
               active === item.id
                 ? "bg-[var(--backgroundAlt)] text-[var(--text)]"
                 : "hover:bg-[var(--backgroundAlt)] text-[var(--textMuted)]"
             }`
       }
-      style={{ fontFamily: "var(--font)" }}
+      style={{
+        fontFamily: "var(--font)",
+        borderColor: "var(--line)",
+        backdropFilter: isMobile ? "blur(2px)" : undefined
+      }}
+      
     >
       {item.label}
     </a>
@@ -355,29 +364,48 @@ function Navbar({ active, navigateTo }) {
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className="sm:hidden inline-flex items-center justify-center h-9 w-9 rounded-md border"
-            style={{ borderColor: "var(--line)", color: "var(--text)" }}
+            className="sm:hidden inline-flex items-center justify-center h-10 w-10 rounded-xl"
+            style={{
+              background: open
+                ? "linear-gradient(135deg, var(--green), var(--blue))"
+                : "linear-gradient(135deg, rgba(255,255,255,0.75), rgba(255,255,255,0.55))",
+              color: open ? "#fff" : "var(--text)",
+              boxShadow: "var(--shadow-soft)",
+              border: "1px solid var(--line)",
+              backdropFilter: "blur(6px)"
+            }}
           >
             {open ? <Icon name="close" className="h-5 w-5" /> : <Icon name="menu" className="h-5 w-5" />}
           </button>
+
         </div>
       </div>
 
       {/* Mobile slide-down menu */}
       <div
-        className={`sm:hidden transition-[max-height] duration-300 ease-out overflow-hidden border-t`}
-        style={{
-          maxHeight: open ? "320px" : "0px",
-          borderColor: "var(--line)",
-          background: "rgba(255,255,255,0.92)",
-          backdropFilter: "blur(8px)",
-        }}
+        className="sm:hidden transition-[max-height] duration-300 ease-out overflow-hidden"
+        style={{ maxHeight: open ? "360px" : "0px" }}
       >
-        <div className="mx-auto max-w-6xl px-2 py-2">
-          <div className="grid gap-1">
-            {items.map((item) => (
-              <NavLink key={item.id} item={item} isMobile />
-            ))}
+        <div
+          className="mx-auto max-w-6xl px-3"
+          style={{ paddingTop: open ? "10px" : "0px", paddingBottom: open ? "12px" : "0px" }}
+        >
+          <div
+            className="rounded-2xl border"
+            style={{
+              borderColor: "var(--line)",
+              background: "linear-gradient(160deg, var(--grad-sectionA), rgba(255,255,255,0.88))",
+              boxShadow: "var(--shadow-soft)",
+              backdropFilter: "blur(10px)"
+            }}
+          >
+            <div className="p-2">
+              <div className="grid gap-1">
+                {items.map((item) => (
+                  <NavLink key={item.id} item={item} isMobile />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
