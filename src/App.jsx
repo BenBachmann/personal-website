@@ -146,7 +146,7 @@ const NOVEL = {
     "To write with classical backbone and contemporary eyes — a narrative that moves, thinks, and burns without ornamentation. The project is in active development; updates will appear here as the structure locks.",
 };
 
-const FAVORITES = [
+const FAVOURITES = [
   { title: "Movies", items: [
       "Lawrence of Arabia",
       "Barry Lyndon",
