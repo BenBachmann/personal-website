@@ -86,7 +86,7 @@ const HOME_HERO = {
 
 const ABOUT = {
   photoUrl:
-    "profile_picture.jpg",
+    "/profile_picture.jpg",
   bio: `My name is Ben Bachmann. My goal is to bring into public life a point of view that is both modern and rooted in classical thought. My background includes degrees in both the natural sciences and humanities, experience at tech startups, as well as extensive training as a classical musician. I am currently completing a novel, and I regularly post articles on a wide range of topics on Substack.`,
   highlights: [
     {
@@ -152,7 +152,7 @@ const FAVOURITES = [
       "Barry Lyndon",
       "Brief Encounter",
       "Vertigo",
-      "The Bridge on the River Kwai",
+      "The Bridge on the Rier Kwai",
       "Tokyo Story"
     ] },
   { title: "Authors", items: [
