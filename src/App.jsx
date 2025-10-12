@@ -93,16 +93,13 @@ const ABOUT = {
       title: "Current Work",
       items: [
         "Weekly essays on Substack",
-        "A novel in progress: structure, voice, and moral stakes",
-        "Research on European intellectual history and infrastructure",
+        "Placeholder"
       ],
     },
     {
       title: "Interests",
       items: [
-        "Aesthetics across arts",
-        "Science & engineering culture",
-        "Travel, landscape, and modernity",
+        "TBA"
       ],
     },
   ],
