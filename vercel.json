@@ -1,0 +1,19 @@
+{
+    "trailingSlash": false,
+    "cleanUrls": true,
+    "rewrites": [
+      {
+        "source": "/((?!api/|.*\\..*).*)",
+        "destination": "/index.html"
+      }
+    ],
+    "redirects": [
+      {
+        "source": "/(.*)",
+        "has": [{ "type": "host", "value": "www.YOURDOMAIN.com" }],
+        "destination": "https://YOURDOMAIN.com/$1",
+        "permanent": true
+      }
+    ]
+  }
+  
