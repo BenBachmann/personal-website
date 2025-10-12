@@ -1,60 +1,50 @@
 import React, { useEffect, useMemo, useState } from "react";
 
 /**
- * BEN'S PERSONAL WEBSITE — Single‑file React app (Full Site)
+ * BEN'S PERSONAL WEBSITE — Single-file React app (Full Site)
  * ---------------------------------------------------------------
- * Pages: Home, About, Writing, A Novel: Upcoming, Contact
- * Modern alpine palette with richer, controllable gradients and tall, clean typography.
- * Everything is theme‑driven via CSS variables for easy tuning.
+ * Clean path routing (/, /about, /writing, /novel, /favourites, /contact)
+ * Mobile fix: responsive navbar with hamburger + slide-down menu
+ *
+ * IMPORTANT (deployment):
+ * - Add vercel.json at project root:
+ *   {
+ *     "rewrites": [
+ *       { "source": "/(.*)", "destination": "/index.html" }
+ *     ]
+ *   }
+ * - Put robots.txt and sitemap.xml in /public (see earlier instructions).
+ * - In index.html <head>, include: <base href="/" />
  */
 
 // =========================
 // THEME — EDIT HERE
 // =========================
 const THEME = {
-  // Intensify or soften the site quickly by changing these alphas (0 → 1)
-  intensity: {
-    tint: 0.18, // section background washes
-    card: 0.24, // card gradient strength
-    badge: 0.18, // tag/badge wash
-  },
+  intensity: { tint: 0.18, card: 0.24, badge: 0.18 },
   colors: {
-    // Base surfaces
     background: "#ECF4F7",
     backgroundAlt: "#E2EFF1",
-
-    // Text
     text: "#0A1A28",
     textMuted: "#5A6A75",
-
-    // Alpine hues
     green: "#2F8E75",
     blue: "#2F76B4",
     grey: "#8DA3AE",
-
-    // Wildflower accents
-    accent1: "#8166B1", // alpine violet
-    accent2: "#D3A43E", // arnica gold
-
-    // Lines
+    accent1: "#8166B1",
+    accent2: "#D3A43E",
     line: "#D8E0E3",
   },
-  // Card gradient stops (edit to change color character). Use rgba with any alpha.
   gradients: {
-    cardFrom: "rgba(47, 142, 117, 0.30)", // greenish
-    cardTo: "rgba(47, 118, 180, 0.14)",   // blueish
-    sectionA: "rgba(47,118,180,0.18)",    // blue tint
-    sectionB: "rgba(129,102,177,0.14)",   // violet tint
+    cardFrom: "rgba(47, 142, 117, 0.30)",
+    cardTo: "rgba(47, 118, 180, 0.14)",
+    sectionA: "rgba(47,118,180,0.18)",
+    sectionB: "rgba(129,102,177,0.14)",
     badgeA: "rgba(47,142,117,0.22)",
     badgeB: "rgba(47,118,180,0.18)",
   },
   radii: { card: "1.25rem", input: "0.875rem", button: "0.875rem" },
-  shadows: {
-    card: "0 14px 40px rgba(12, 22, 41, 0.12)",
-    soft: "0 4px 14px rgba(12, 22, 41, 0.10)",
-  },
-  fontFamily:
-    '"Plus Jakarta Sans", "Inter Tight", "IBM Plex Sans", system-ui, sans-serif',
+  shadows: { card: "0 14px 40px rgba(12, 22, 41, 0.12)", soft: "0 4px 14px rgba(12, 22, 41, 0.10)" },
+  fontFamily: '"Plus Jakarta Sans", "Inter Tight", "IBM Plex Sans", system-ui, sans-serif',
   fontScale: {
     h1: "clamp(2rem, 3vw + 1rem, 3rem)",
     h2: "clamp(1.5rem, 2vw + 0.8rem, 2.25rem)",
@@ -71,126 +61,45 @@ const PAGES_ENABLED = {
   home: true,
   about: true,
   writing: true,
-  novel: true, // set to false to hide "A Novel: Upcoming"
-  favourites: true, // NEW PAGE
+  novel: true,
+  favourites: true,
   contact: true,
 };
 
 // =========================
 // CONTENT — EDIT HERE
 // =========================
-const HOME_HERO = {
-  name: "Ben Bachmann",
-  tagline: "Writer, Thinker, Scientist, Musician",
-};
+const HOME_HERO = { name: "Ben Bachmann", tagline: "Writer, Thinker, Scientist, Musician" };
 
 const ABOUT = {
-  photoUrl:
-    "/profile_picture.jpg",
+  photoUrl: "/profile_picture.jpg",
   bio: `My name is Ben Bachmann. My goal is to bring into public life a point of view that is both modern and rooted in classical thought. My background includes degrees in both the natural sciences and humanities, experience at tech startups, as well as extensive training as a classical musician. I am currently completing a novel, and I regularly post articles on a wide range of topics on Substack.`,
   highlights: [
-    {
-      title: "Current Work",
-      items: [
-        "Weekly essays on Substack",
-        "Placeholder"
-      ],
-    },
-    {
-      title: "Interests",
-      items: [
-        "TBA"
-      ],
-    },
+    { title: "Current Work", items: ["Weekly essays on Substack", "Placeholder"] },
+    { title: "Interests", items: ["TBA"] },
   ],
 };
 
 const WRITING_CARDS = [
-  {
-    title: "TBA",
-    excerpt:
-      "tba",
-    href: "#",
-    tags: ["essay", "culture"],
-  }
+  { title: "TBA", excerpt: "tba", href: "#", tags: ["essay", "culture"] }
 ];
 
-const NOVEL = {
-  title: "A Novel: Upcoming",
-  description:
-    "Need to add description",
-  intent:
-    "add inspiration",
-};
+const NOVEL = { title: "A Novel: Upcoming", description: "Need to add description", intent: "add inspiration" };
 
 const FAVOURITES = [
-  { title: "Movies", items: [
-      "Lawrence of Arabia",
-      "Barry Lyndon",
-      "Brief Encounter",
-      "Vertigo",
-      "The Bridge on the Rier Kwai",
-      "Tokyo Story"
-    ] },
-  { title: "Authors", items: [
-      "Leo Tolstoy",
-      "Fyodor Dostoevsky",
-      "Charles Dickens",
-      "Ernest Hemingway",
-      "Homer",
-      "Sophocles"
-    ] },
-  { title: "Orchestral Pieces", items: [
-      "Beethoven- Symphony No. 3 \"Eroica\"",
-      "Beethoven- Egmont Overture",
-      "Beethoven- Piano Concerto No.5 \"Emperor\"",
-    ] },
-  { title: "Piano Pieces", items: [
-      "Beethoven- Sonata No.23 \"Appassionata\"",
-      "Schubert- Wanderer Fantasie",
-      "Schubert- Sonata No.21",
-      "Schumann- Fantasie in C",
-      "Ravel- Gaspard de la Nuit"
-    ] },  
-  { title: "Films Since 2000", items: [
-      "There Will Be Blood",
-      "Ex Machina",
-      "Mulholland Drive",
-      "Inglourious Basterds",
-      "Melancholia",
-      "The Tree of Life",
-      "Arrival"
-    ] },
-    { title: "Contemporary Authors", items: [
-      "Sally Rooney",
-      "Haruki Murakami",
-      "Jonathan Franzen",
-      "Christian Kracht"
-    ] },
-    { title: "American National Parks", items: [
-      "Arches",
-      "Bryce Canyon",
-      "Grand Canyon",
-      "North Cascades",
-      "Theodore Roosevelt"
-    ] },
-    { title: "European Cities", items: [
-      "Vienna",
-      "London",
-      "Florence",
-      "Prague",
-      "Granada"
-    ] },
-    { title: "Philosophers", items: [
-      "Friedrich Nietzsche",
-      "Aristotle",
-      "Plato"
-    ]}
+  { title: "Movies", items: ["Lawrence of Arabia","Barry Lyndon","Brief Encounter","Vertigo","The Bridge on the Rier Kwai","Tokyo Story"] },
+  { title: "Authors", items: ["Leo Tolstoy","Fyodor Dostoevsky","Charles Dickens","Ernest Hemingway","Homer","Sophocles"] },
+  { title: "Orchestral Pieces", items: ["Beethoven- Symphony No. 3 \"Eroica\"","Beethoven- Egmont Overture","Beethoven- Piano Concerto No.5 \"Emperor\""] },
+  { title: "Piano Pieces", items: ["Beethoven- Sonata No.23 \"Appassionata\"","Schubert- Wanderer Fantasie","Schubert- Sonata No.21","Schumann- Fantasie in C","Ravel- Gaspard de la Nuit"] },
+  { title: "Films Since 2000", items: ["There Will Be Blood","Ex Machina","Mulholland Drive","Inglourious Basterds","Melancholia","The Tree of Life","Arrival"] },
+  { title: "Contemporary Authors", items: ["Sally Rooney","Haruki Murakami","Jonathan Franzen","Christian Kracht"] },
+  { title: "American National Parks", items: ["Arches","Bryce Canyon","Grand Canyon","North Cascades","Theodore Roosevelt"] },
+  { title: "European Cities", items: ["Vienna","London","Florence","Prague","Granada"] },
+  { title: "Philosophers", items: ["Friedrich Nietzsche","Aristotle","Plato"] }
 ];
 
 const CONTACT = {
-  blurb:
-    "For speaking, editorial collaborations, or thoughtful correspondence, use the form below. I read everything.",
+  blurb: "For speaking, editorial collaborations, or thoughtful correspondence, use the form below. I read everything.",
   socials: [
     { label: "X", href: "https://x.com/", aria: "X (Twitter)" },
     { label: "Substack", href: "https://substack.com", aria: "Substack" },
@@ -206,24 +115,14 @@ function useCSSVars() {
   useEffect(() => {
     const r = document.documentElement;
     const set = (k, v) => r.style.setProperty(k, v);
-
-    // colors
     Object.entries(THEME.colors).forEach(([k, v]) => set(`--${k}`, v));
-
-    // intensity
     Object.entries(THEME.intensity).forEach(([k, v]) => set(`--int-${k}`, String(v)));
-
-    // gradients
     Object.entries(THEME.gradients).forEach(([k, v]) => set(`--grad-${k}`, v));
-
-    // radii & shadows
     set("--radius-card", THEME.radii.card);
     set("--radius-input", THEME.radii.input);
     set("--radius-button", THEME.radii.button);
     set("--shadow-card", THEME.shadows.card);
     set("--shadow-soft", THEME.shadows.soft);
-
-    // type
     set("--font", THEME.fontFamily);
     set("--fs-h1", THEME.fontScale.h1);
     set("--fs-h2", THEME.fontScale.h2);
@@ -234,30 +133,55 @@ function useCSSVars() {
 }
 
 // =========================
-// ROUTER (hash)
+// ROUTER (history + clean URLs)
 // =========================
 const ROUTES = [
-  { id: "home", label: "Home", path: "#/home" },
-  { id: "about", label: "About", path: "#/about" },
-  { id: "writing", label: "Writing", path: "#/writing" },
-  { id: "novel", label: "A Novel: Upcoming", path: "#/novel" },
-  { id: "favourites", label: "Favourites", path: "#/favourites" }, // inserted before Contact
-  { id: "contact", label: "Contact", path: "#/contact" },
+  { id: "home",       label: "Home",                 path: "/" },
+  { id: "about",      label: "About",                path: "/about" },
+  { id: "writing",    label: "Writing",              path: "/writing" },
+  { id: "novel",      label: "A Novel: Upcoming",    path: "/novel" },
+  { id: "favourites", label: "Favourites",           path: "/favourites" },
+  { id: "contact",    label: "Contact",              path: "/contact" },
 ];
 
-function useHashRoute(defaultRoute = "home") {
-  const [route, setRoute] = useState(() => currentFromHash(defaultRoute));
-  useEffect(() => {
-    const onHash = () => setRoute(currentFromHash(defaultRoute));
-    window.addEventListener("hashchange", onHash);
-    return () => window.removeEventListener("hashchange", onHash);
-  }, [defaultRoute]);
-  return route;
+const idToPath = Object.fromEntries(ROUTES.map(r => [r.id, r.path]));
+const pathToId = Object.fromEntries(ROUTES.map(r => [r.path, r.id]));
+
+function normalizePath(p) {
+  const url = new URL(p, window.location.origin);
+  let pathname = url.pathname;
+  if (pathname.length > 1 && pathname.endsWith("/")) pathname = pathname.slice(0, -1);
+  return pathname || "/";
 }
 
-function currentFromHash(fallback) {
-  const id = window.location.hash.replace("#/", "") || fallback;
-  return PAGES_ENABLED[id] ? id : fallback;
+function currentIdFromPath(fallback = "home") {
+  const pathname = normalizePath(window.location.href);
+  const found = pathToId[pathname] || fallback;
+  return PAGES_ENABLED[found] ? found : fallback;
+}
+
+function usePathRoute(defaultRoute = "home") {
+  const [route, setRoute] = useState(() => currentIdFromPath(defaultRoute));
+  useEffect(() => {
+    const onPop = () => setRoute(currentIdFromPath(defaultRoute));
+    window.addEventListener("popstate", onPop);
+    const initial = currentIdFromPath(defaultRoute);
+    if (initial !== route) {
+      window.history.replaceState({}, "", idToPath[initial] || "/");
+      setRoute(initial);
+    }
+    return () => window.removeEventListener("popstate", onPop);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultRoute]);
+
+  const navigateTo = (id, replace = false) => {
+    const path = idToPath[id] || "/";
+    const method = replace ? "replaceState" : "pushState";
+    window.history[method]({}, "", path);
+    window.dispatchEvent(new PopStateEvent("popstate"));
+  };
+
+  return { route, navigateTo };
 }
 
 // =========================
@@ -270,13 +194,13 @@ function Card({ children, className = "", style }) {
       style={{
         background: `linear-gradient(145deg, var(--grad-cardFrom), var(--grad-cardTo))`,
         boxShadow: "var(--shadow-card)",
-        border: `1px solid var(--line)` ,
+        border: `1px solid var(--line)`,
         borderRadius: "var(--radius-card)",
         transition: "transform 0.2s ease, box-shadow 0.2s ease",
         ...style,
       }}
-      onMouseEnter={(e) => (e.currentTarget.style.transform = 'translateY(-3px)')}
-      onMouseLeave={(e) => (e.currentTarget.style.transform = 'translateY(0)')}
+      onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-3px)")}
+      onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
     >
       {children}
     </div>
@@ -296,6 +220,25 @@ function Badge({ children }) {
       {children}
     </span>
   );
+}
+
+function Icon({ name, className, style }) {
+  // Simple inline icons for hamburger/close
+  if (name === "menu") {
+    return (
+      <svg viewBox="0 0 24 24" className={className} style={style} fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M3 6h18M3 12h18M3 18h18" />
+      </svg>
+    );
+  }
+  if (name === "close") {
+    return (
+      <svg viewBox="0 0 24 24" className={className} style={style} fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M6 6l12 12M6 18L18 6" />
+      </svg>
+    );
+  }
+  return null;
 }
 
 function NewsletterForm() {
@@ -336,36 +279,107 @@ function NewsletterForm() {
 }
 
 // =========================
-// LAYOUT
+// LAYOUT — Responsive Navbar
 // =========================
-function Navbar({ active }) {
+function Navbar({ active, navigateTo }) {
   const items = ROUTES.filter((r) => PAGES_ENABLED[r.id]);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    // Close menu on route change or on ESC
+    const onKey = (e) => { if (e.key === "Escape") setOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  useEffect(() => {
+    // prevent body scroll when menu open (mobile)
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [open]);
+
+  // Reusable nav link
+  const NavLink = ({ item, isMobile }) => (
+    <a
+      href={idToPath[item.id]}
+      onClick={(e) => {
+        e.preventDefault();
+        navigateTo(item.id);
+        setOpen(false);
+      }}
+      className={
+        isMobile
+          ? `block w-full text-left px-4 py-3 rounded-lg ${active === item.id ? "bg-[var(--backgroundAlt)] text-[var(--text)]" : "text-[var(--text)] hover:bg-[var(--backgroundAlt)]"}`
+          : `rounded-full px-3 py-2 text-sm transition-all ${
+              active === item.id
+                ? "bg-[var(--backgroundAlt)] text-[var(--text)]"
+                : "hover:bg-[var(--backgroundAlt)] text-[var(--textMuted)]"
+            }`
+      }
+      style={{ fontFamily: "var(--font)" }}
+    >
+      {item.label}
+    </a>
+  );
+
   return (
-    <header className="sticky top-0 z-40 backdrop-blur bg-white/70 border-b" style={{ borderColor: "var(--line)" }}>
-      <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
-        <a href="#/home" className="flex items-center gap-2 font-semibold" style={{ color: "var(--text)", fontFamily: "var(--font)" }}>
-          {/* Circular alpine logo */}
-          <span aria-hidden className="inline-flex h-7 w-7 rounded-full shadow-sm" style={{
-            background: "conic-gradient(from 200deg, var(--green), var(--blue), var(--accent1))",
-          }} />
-          <span>Ben</span>
-        </a>
-        <nav className="flex items-center gap-2 sm:gap-4">
-          {items.map((item) => (
-            <a
-              key={item.id}
-              href={item.path}
-              className={`rounded-full px-3 py-2 text-sm transition-all ${
-                active === item.id
-                  ? "bg-[var(--backgroundAlt)] text-[var(--text)]"
-                  : "hover:bg-[var(--backgroundAlt)] text-[var(--textMuted)]"
-              }`}
-              style={{ fontFamily: "var(--font)" }}
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
+    <header className="sticky top-0 z-50 backdrop-blur bg-white/70 border-b" style={{ borderColor: "var(--line)" }}>
+      <div className="mx-auto max-w-6xl px-4">
+        {/* Row */}
+        <div className="flex h-14 items-center justify-between">
+          {/* Logo */}
+          <a
+            href={idToPath["home"]}
+            onClick={(e) => { e.preventDefault(); navigateTo("home"); setOpen(false); }}
+            className="flex items-center gap-2 font-semibold"
+            style={{ color: "var(--text)", fontFamily: "var(--font)" }}
+          >
+            <span aria-hidden className="inline-flex h-7 w-7 rounded-full shadow-sm" style={{
+              background: "conic-gradient(from 200deg, var(--green), var(--blue), var(--accent1))",
+            }} />
+            <span>Ben</span>
+          </a>
+
+          {/* Desktop nav */}
+          <nav className="hidden sm:flex items-center gap-2 sm:gap-4">
+            {items.map((item) => (
+              <NavLink key={item.id} item={item} />
+            ))}
+          </nav>
+
+          {/* Mobile menu button */}
+          <button
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            className="sm:hidden inline-flex items-center justify-center h-9 w-9 rounded-md border"
+            style={{ borderColor: "var(--line)", color: "var(--text)" }}
+          >
+            {open ? <Icon name="close" className="h-5 w-5" /> : <Icon name="menu" className="h-5 w-5" />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile slide-down menu */}
+      <div
+        className={`sm:hidden transition-[max-height] duration-300 ease-out overflow-hidden border-t`}
+        style={{
+          maxHeight: open ? "320px" : "0px",
+          borderColor: "var(--line)",
+          background: "rgba(255,255,255,0.92)",
+          backdropFilter: "blur(8px)",
+        }}
+      >
+        <div className="mx-auto max-w-6xl px-2 py-2">
+          <div className="grid gap-1">
+            {items.map((item) => (
+              <NavLink key={item.id} item={item} isMobile />
+            ))}
+          </div>
+        </div>
       </div>
     </header>
   );
@@ -406,13 +420,11 @@ function Footer() {
 // =========================
 // PAGES
 // =========================
-function HomePage() {
+function HomePage({ navigateTo }) {
   return (
     <main>
-      {/* Alpine wash */}
       <section className="relative overflow-hidden" style={{ background: `linear-gradient(180deg, var(--grad-sectionA), transparent), var(--background)` }}>
         <div className="mx-auto max-w-6xl px-4 py-16 sm:py-24">
-          {/* Big hero card */}
           <Card className="p-10 sm:p-12" style={{ background: `linear-gradient(160deg, var(--grad-cardFrom), var(--grad-cardTo))` }}>
             <div className="max-w-3xl">
               <h1 className="font-semibold tracking-tight" style={{ fontSize: "var(--fs-h1)", color: "var(--text)", fontFamily: "var(--font)" }}>
@@ -423,7 +435,8 @@ function HomePage() {
               </p>
               <div className="mt-8 flex gap-3">
                 <a
-                  href="#/writing"
+                  href={idToPath["writing"]}
+                  onClick={(e) => { e.preventDefault(); navigateTo("writing"); }}
                   className="px-5 py-3 font-medium"
                   style={{
                     background: "linear-gradient(135deg, var(--green), var(--blue))",
@@ -435,7 +448,8 @@ function HomePage() {
                   Read my writing
                 </a>
                 <a
-                  href="#/writing"
+                  href={idToPath["about"]}
+                  onClick={(e) => { e.preventDefault(); navigateTo("about"); }}
                   className="px-5 py-3 font-medium"
                   style={{
                     background: "linear-gradient(135deg, var(--green), var(--blue))",
@@ -452,14 +466,18 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Featured writing */}
       {WRITING_CARDS.length > 0 && (
         <section className="mx-auto max-w-6xl px-4 py-16">
           <div className="flex items-end justify-between mb-6">
             <h2 className="font-semibold" style={{ fontSize: "var(--fs-h2)", color: "var(--text)", fontFamily: "var(--font)" }}>
               Featured Writing
             </h2>
-            <a href="#/writing" className="text-sm hover:underline" style={{ color: "var(--textMuted)", fontFamily: "var(--font)" }}>
+            <a
+              href={idToPath["writing"]}
+              onClick={(e) => { e.preventDefault(); navigateTo("writing"); }}
+              className="text-sm hover:underline"
+              style={{ color: "var(--textMuted)", fontFamily: "var(--font)" }}
+            >
               View all
             </a>
           </div>
@@ -477,7 +495,6 @@ function HomePage() {
 function AboutPage() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-12 sm:py-16">
-      {/* Combined photo + bio in one card */}
       <section>
         <Card className="p-4 sm:p-6" style={{ background: `linear-gradient(150deg, var(--grad-cardFrom), #ffffff)` }}>
           <div className="grid gap-6 md:grid-cols-5 items-center">
@@ -496,7 +513,6 @@ function AboutPage() {
         </Card>
       </section>
 
-      {/* Highlights remain as separate cards */}
       <section className="mt-12 grid gap-6 sm:grid-cols-2">
         {ABOUT.highlights.map((group) => (
           <Card key={group.title} className="p-6" style={{ background: `linear-gradient(165deg, #ffffff, var(--grad-cardTo))` }}>
@@ -548,7 +564,7 @@ function WritingPage() {
           Writing
         </h1>
         <div className="text-sm" style={{ color: "var(--textMuted)", fontFamily: "var(--font)" }}>
-          Minimal, card‑first layout
+          Minimal, card-first layout
         </div>
       </div>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -705,21 +721,21 @@ function ContactPage() {
 }
 
 // =========================
-// ROOT APP
+/* ROOT APP */
 // =========================
 export default function App() {
   useCSSVars();
-  const route = useHashRoute("home");
+  const { route, navigateTo } = usePathRoute("home");
 
   const Page = useMemo(() => {
-    if (route === "home" && PAGES_ENABLED.home) return <HomePage />;
+    if (route === "home" && PAGES_ENABLED.home) return <HomePage navigateTo={navigateTo} />;
     if (route === "about" && PAGES_ENABLED.about) return <AboutPage />;
     if (route === "writing" && PAGES_ENABLED.writing) return <WritingPage />;
     if (route === "novel" && PAGES_ENABLED.novel) return <NovelPage />;
     if (route === "favourites" && PAGES_ENABLED.favourites) return <FavouritesPage />;
     if (route === "contact" && PAGES_ENABLED.contact) return <ContactPage />;
-    return <HomePage />;
-  }, [route]);
+    return <HomePage navigateTo={navigateTo} />;
+  }, [route, navigateTo]);
 
   return (
     <div
@@ -730,10 +746,10 @@ export default function App() {
                      var(--background)`,
         color: "var(--text)",
         fontFamily: "var(--font)",
-        overflowX: "hidden",     // <- add this
+        overflowX: "hidden",
       }}
     >
-      <Navbar active={route} />
+      <Navbar active={route} navigateTo={navigateTo} />
       {Page}
       <Footer />
     </div>
@@ -743,8 +759,7 @@ export default function App() {
 // =========================
 // NOTES
 // =========================
-// 1) Boldness dial: edit THEME.gradients.cardFrom/cardTo and their alpha; or adjust THEME.intensity.card/badge/tint then mirror in rgba values.
-// 2) To make cards flatter, set gradients to low alpha or pure #fff; to go bolder, raise the rgba alphas.
-// 3) To remove the Novel page, set PAGES_ENABLED.novel = false.
-// 4) Wire forms to your ESP (Substack/Mailchimp/Buttondown) or serverless API.
-// 5) Swap fonts by changing THEME.fontFamily; add a <link> to the font in your index.html if needed.
+// - Desktop keeps your original inline nav.
+// - Mobile uses a hamburger button to reveal a vertical list; it won’t overflow.
+// - ESC closes the mobile menu; body scroll is disabled while open for a tidy UX.
+// - If you ever add more nav items, the mobile menu auto-stacks without layout issues.
