@@ -110,40 +110,20 @@ const ABOUT = {
 
 const WRITING_CARDS = [
   {
-    title: "The Dawn of the Post‑Literate Society",
+    title: "TBA",
     excerpt:
-      "On screens, sound, and the shifting weight of text — and how thinking must adapt without collapsing.",
+      "tba",
     href: "#",
     tags: ["essay", "culture"],
-  },
-  {
-    title: "Beauty with Teeth: Toward a Modern Classicism",
-    excerpt:
-      "An argument for severity and warmth together: the line that holds while letting life in.",
-    href: "#",
-    tags: ["aesthetics"],
-  },
-  {
-    title: "Infrastructure as Fate",
-    excerpt:
-      "Why pipes, grids, and protocols silently govern the horizons of a civilization.",
-    href: "#",
-    tags: ["systems", "history"],
-  },
-  {
-    title: "Against Decorative Thought",
-    excerpt: "How to keep prose sharp without losing humanity.",
-    href: "#",
-    tags: ["craft"],
-  },
+  }
 ];
 
 const NOVEL = {
   title: "A Novel: Upcoming",
   description:
-    "An exploration of loyalty, betrayal, and the modern appetite for transcendence. Set between Boston, Munich, and the American West, the story follows a mind stretched between clarity and desire.",
+    "Need to add description",
   intent:
-    "To write with classical backbone and contemporary eyes — a narrative that moves, thinks, and burns without ornamentation. The project is in active development; updates will appear here as the structure locks.",
+    "add inspiration",
 };
 
 const FAVOURITES = [
@@ -204,7 +184,7 @@ const FAVOURITES = [
       "Prague",
       "Granada"
     ] },
-    { title: "Philosophers", itmes: [
+    { title: "Philosophers", items: [
       "Friedrich Nietzsche",
       "Aristotle",
       "Plato"
@@ -595,7 +575,7 @@ function FavouritesPage() {
         </div>
       </div>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {FAVORITES.map((cat) => (
+        {FAVOURITES.map((cat) => (
           <Card key={cat.title} className="p-6" style={{ background: `linear-gradient(155deg, #fff, var(--grad-cardTo))` }}>
             <h3 className="font-semibold mb-3" style={{ fontSize: "var(--fs-h3)", color: "var(--text)", fontFamily: "var(--font)" }}>
               {cat.title}
