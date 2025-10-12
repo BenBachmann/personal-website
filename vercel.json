@@ -10,8 +10,8 @@
     "redirects": [
       {
         "source": "/(.*)",
-        "has": [{ "type": "host", "value": "www.YOURDOMAIN.com" }],
-        "destination": "https://YOURDOMAIN.com/$1",
+        "has": [{ "type": "host", "value": "www.benbachmann.com" }],
+        "destination": "https://benbachmann.com/$1",
         "permanent": true
       }
     ]
