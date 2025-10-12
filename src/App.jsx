@@ -148,32 +148,67 @@ const NOVEL = {
 
 const FAVORITES = [
   { title: "Movies", items: [
-      "The Lives of Others",
-      "The Godfather",
-      "In the Mood for Love",
       "Lawrence of Arabia",
-      "Barry Lyndon"
+      "Barry Lyndon",
+      "Brief Encounter",
+      "Vertigo",
+      "The Bridge on the River Kwai",
+      "Tokyo Story"
     ] },
-  { title: "Books", items: [
-      "The Magic Mountain",
-      "War and Peace",
-      "The Brothers Karamazov",
+  { title: "Authors", items: [
+      "Leo Tolstoy",
+      "Fyodor Dostoevsky",
+      "Charles Dickens",
+      "Ernest Hemingway",
+      "Homer",
+      "Sophocles"
     ] },
-  { title: "Music", items: [
-      "Bach — Mass in B minor",
-      "Mahler — Symphony No. 5",
-      "Miles Davis — Kind of Blue",
+  { title: "Orchestral Pieces", items: [
+      "Beethoven- Symphony No. 3 \"Eroica\"",
+      "Beethoven- Egmont Overture",
+      "Beethoven- Piano Concerto No.5 \"Emperor\"",
     ] },
-  { title: "Places", items: [
-      "Dolomites",
-      "Boston Public Garden",
-      "Lake District",
+  { title: "Piano Pieces", items: [
+      "Beethoven- Sonata No.23 \"Appassionata\"",
+      "Schubert- Wanderer Fantasie",
+      "Schubert- Sonata No.21",
+      "Schumann- Fantasie in C",
+      "Ravel- Gaspard de la Nuit"
+    ] },  
+  { title: "Films Since 2000", items: [
+      "There Will Be Blood",
+      "Ex Machina",
+      "Mulholland Drive",
+      "Inglourious Basterds",
+      "Melancholia",
+      "The Tree of Life",
+      "Arrival"
     ] },
-  { title: "Tools", items: [
-      "Obsidian",
-      "Vivaldi",
-      "1Password",
+    { title: "Contemporary Authors", items: [
+      "Sally Rooney",
+      "Haruki Murakami",
+      "Jonathan Franzen",
+      "Christian Kracht"
     ] },
+    { title: "American National Parks", items: [
+      "Arches",
+      "Bryce Canyon",
+      "Grand Canyon",
+      "North Cascades",
+      "Theodore Roosevelt"
+    ] },
+    { title: "European Cities", items: [
+      "Vienna",
+      "London",
+      "Florence",
+      "Prague",
+      "Granada"
+    ] },
+    { title: "Philosophers", itmes: [
+      "Friedrich Nietzsche",
+      "Aristotle",
+      "Plato"
+    ]}
 ];
 
 const CONTACT = {
