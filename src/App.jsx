@@ -89,13 +89,14 @@ const NOVEL = { title: "A Novel: Upcoming", description: "Need to add descriptio
 const FAVOURITES = [
   { title: "Movies", items: ["Lawrence of Arabia","Barry Lyndon","Brief Encounter","Vertigo","The Bridge on the Rier Kwai","Tokyo Story"] },
   { title: "Authors", items: ["Leo Tolstoy","Fyodor Dostoevsky","Charles Dickens","Ernest Hemingway","Homer","Sophocles"] },
-  { title: "Orchestral Pieces", items: ["Beethoven- Symphony No. 3 \"Eroica\"","Beethoven- Egmont Overture","Beethoven- Piano Concerto No.5 \"Emperor\""] },
+  { title: "Orchestral Pieces", items: ["Beethoven- Symphony No. 3 \"Eroica\"","Beethoven- Egmont Overture","Beethoven- Piano Concerto No.5 \"Emperor\"", "Mozart- Symphony No.40", "Brahms- Piano Concerto No.1"] },
   { title: "Piano Pieces", items: ["Beethoven- Sonata No.23 \"Appassionata\"","Schubert- Wanderer Fantasie","Schubert- Sonata No.21","Schumann- Fantasie in C","Ravel- Gaspard de la Nuit"] },
-  { title: "Films Since 2000", items: ["There Will Be Blood","Ex Machina","Mulholland Drive","Inglourious Basterds","Melancholia","The Tree of Life","Arrival"] },
+  { title: "Movies Since 2000", items: ["There Will Be Blood","Ex Machina","Mulholland Drive","Inglourious Basterds","Melancholia","The Tree of Life","Arrival"] },
   { title: "Contemporary Authors", items: ["Sally Rooney","Haruki Murakami","Jonathan Franzen","Christian Kracht"] },
   { title: "American National Parks", items: ["Arches","Bryce Canyon","Grand Canyon","North Cascades","Theodore Roosevelt"] },
   { title: "European Cities", items: ["Vienna","London","Florence","Prague","Granada"] },
-  { title: "Philosophers", items: ["Friedrich Nietzsche","Aristotle","Plato"] }
+  { title: "Philosophers", items: ["Friedrich Nietzsche","Aristotle","Plato", "Baruch Spinoza"] },
+  { title: "Non-fiction Books", items: [] }
 ];
 
 const CONTACT = {
