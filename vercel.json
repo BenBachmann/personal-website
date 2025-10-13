@@ -1,4 +1,5 @@
 {
+  "version": 2,
   "cleanUrls": true,
   "trailingSlash": false,
 
@@ -22,7 +23,6 @@
 
     { "src": "/sitemap.xml", "dest": "/sitemap.xml" },
     { "src": "/robots.txt",  "dest": "/robots.txt"  },
-
     { "src": "/assets/(.*)", "dest": "/assets/$1"  },
     { "src": "/(.*\\..*)",  "dest": "/$1"          },
 
