@@ -88,7 +88,7 @@ const NOVEL = { title: "A Novel: Upcoming", description: "Need to add descriptio
 
 const FAVOURITES = [
   { title: "Movies", items: ["Lawrence of Arabia","Barry Lyndon","Brief Encounter","Vertigo","The Bridge on the Rier Kwai","Tokyo Story"] },
-  { title: "Authors", items: ["Leo Tolstoy","Fyodor Dostoevsky","Charles Dickens","Ernest Hemingway","Homer","Sophocles"] },
+  { title: "Authors", items: ["Leo Tolstoy","Fyodor Dostoevsky","Charles Dickens","Homer","Sophocles"] },
   { title: "Orchestral Pieces", items: ["Beethoven- Symphony No. 3 \"Eroica\"","Beethoven- Egmont Overture","Beethoven- Piano Concerto No.5 \"Emperor\"", "Mozart- Symphony No.40", "Brahms- Piano Concerto No.1"] },
   { title: "Piano Pieces", items: ["Beethoven- Sonata No.23 \"Appassionata\"","Schubert- Wanderer Fantasie","Schubert- Sonata No.21","Schumann- Fantasie in C","Ravel- Gaspard de la Nuit"] },
   { title: "Movies Since 2000", items: ["There Will Be Blood","Ex Machina","Mulholland Drive","Inglourious Basterds","Melancholia","The Tree of Life","Arrival"] },
