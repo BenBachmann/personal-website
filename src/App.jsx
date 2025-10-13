@@ -102,10 +102,10 @@ const FAVOURITES = [
 const CONTACT = {
   blurb: "For speaking, editorial collaborations, or thoughtful correspondence, use the form below. I read everything.",
   socials: [
-    { label: "X", href: "https://x.com/", aria: "X (Twitter)" },
-    { label: "Substack", href: "https://substack.com", aria: "Substack" },
-    { label: "YouTube", href: "https://youtube.com", aria: "YouTube" },
-    { label: "LinkedIn", href: "https://linkedin.com", aria: "LinkedIn" },
+    { label: "X", href: "https://x.com/benbachmann_", aria: "X (Twitter)" },
+    { label: "Substack", href: "https://substack.com/@ben1568308", aria: "Substack" },
+    { label: "YouTube", href: "https://youtube.com/@benbachmann1634", aria: "YouTube" },
+    { label: "LinkedIn", href: "https://linkedin.com/ben-bachmann-a2279a232", aria: "LinkedIn" },
   ],
 };
 
