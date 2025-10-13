@@ -96,6 +96,7 @@ const FAVOURITES = [
   { title: "American National Parks", items: ["Arches","Bryce Canyon","Grand Canyon","North Cascades","Theodore Roosevelt"] },
   { title: "European Cities", items: ["Vienna","London","Florence","Prague","Granada"] },
   { title: "Philosophers", items: ["Friedrich Nietzsche","Aristotle","Plato", "Baruch Spinoza"] },
+  { title: "Historical Leaders", items: ["Albrecht von Wallenstein", "Admiral Horatio Nelson", "Holy Roman Emperor Frederick II", "Klemens von Metternich", "Pericles", "Justinian"] },
   { title: "Non-fiction Books", items: [] }
 ];
 
@@ -347,9 +348,7 @@ function Navbar({ active, navigateTo }) {
             className="flex items-center gap-2 font-semibold"
             style={{ color: "var(--text)", fontFamily: "var(--font)" }}
           >
-            <span aria-hidden className="inline-flex h-7 w-7 rounded-full shadow-sm" style={{
-              background: "conic-gradient(from 200deg, var(--green), var(--blue), var(--accent1))",
-            }} />
+            <img src="/logo.png" alt="Ben Bachmann logo" width={28} height={28} style={{ display: "block", borderRadius: "6px" }} />
             <span>Ben</span>
           </a>
 

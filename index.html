@@ -4,7 +4,7 @@
     <!-- ===== Meta & Identity ===== -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ben Bachmann — Writer, Thinker, Scientist, Musician</title>
+    <title>Ben Bachmann | Home</title>
     <meta name="description" content="Official website of Ben Bachmann — writer, thinker, scientist, and musician. Essays, projects, and upcoming novel." />
     <meta name="author" content="Ben Bachmann" />
     <link rel="canonical" href="https://benbachmann.com/" />
@@ -15,10 +15,19 @@
 
     <!-- ===== Favicons / Manifest ===== -->
     <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" href="/logo.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#0a2e36" />
+
+    <!-- Preferred logo for crawlers (helps Google pick the right image) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "url": "https://benbachmann.com",
+        "logo": "https://benbachmann.com/logo.png"
+      }
+    </script>
 
     <!-- ===== Fonts ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -34,8 +43,8 @@
     <meta property="og:title" content="Ben Bachmann — Writer & Thinker" />
     <meta property="og:description" content="Official website of Ben Bachmann — essays, projects, and upcoming novel." />
     <meta property="og:url" content="https://benbachmann.com/" />
-    <meta property="og:image" content="https://benbachmann.com/profile_picture.jpg" />
-    <meta property="og:image:alt" content="Portrait of Ben Bachmann with site title" />
+    <meta property="og:image" content="https://benbachmann.com/logo.png" />
+    <meta property="og:image:alt" content="Ben Bachmann logo" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="en_US" />
@@ -44,7 +53,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Ben Bachmann — Writer & Thinker" />
     <meta name="twitter:description" content="Essays, projects, and upcoming novel." />
-    <meta name="twitter:image" content="https://benbachmann.com/profile_picture.jpg" />
+    <meta name="twitter:image" content="https://benbachmann.com/logo.png" />
     <!-- Optional if you have a handle -->
     <meta name="twitter:site" content="@benbachmann_" />
 
