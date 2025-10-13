@@ -1,52 +1,87 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- ===== Meta & Identity ===== -->
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>personal_website</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Plus Jakarta Sans + Inter Tight -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;600&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <title>Ben Bachmann — Writer, Thinker, Scientist, Musician</title>
-    <meta name="description" content="Official website of Ben Bachmann — writer, thinker, scientist, and musician. Essays, projects, and upcoming novel.">
-    <meta name="author" content="Ben Bachmann">
-
-    <!-- Open Graph / social preview -->
-    <meta property="og:title" content="Ben Bachmann — Writer & Thinker">
-    <meta property="og:description" content="Official website of Ben Bachmann — essays, projects, and upcoming novel.">
-    <meta property="og:image" content="https://benbachmann.com/profile_picture.jpg">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://benbachmann.com/">
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Ben Bachmann — Writer & Thinker">
-    <meta name="twitter:description" content="Essays, projects, and upcoming novel.">
-    <meta name="twitter:image" content="https://benbachmann.com/profile_picture.jpg">
-
+    <meta name="description" content="Official website of Ben Bachmann — writer, thinker, scientist, and musician. Essays, projects, and upcoming novel." />
+    <meta name="author" content="Ben Bachmann" />
     <link rel="canonical" href="https://benbachmann.com/" />
+    <base href="/" />
 
+    <!-- ===== Robots & Indexing ===== -->
+    <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
+
+    <!-- ===== Favicons / Manifest ===== -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#0a2e36" />
+
+    <!-- ===== Fonts ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;600&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- ===== Open Graph (Facebook/LinkedIn/etc.) ===== -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Ben Bachmann" />
+    <meta property="og:title" content="Ben Bachmann — Writer & Thinker" />
+    <meta property="og:description" content="Official website of Ben Bachmann — essays, projects, and upcoming novel." />
+    <meta property="og:url" content="https://benbachmann.com/" />
+    <meta property="og:image" content="https://benbachmann.com/profile_picture.jpg" />
+    <meta property="og:image:alt" content="Portrait of Ben Bachmann with site title" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- ===== Twitter Card ===== -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Ben Bachmann — Writer & Thinker" />
+    <meta name="twitter:description" content="Essays, projects, and upcoming novel." />
+    <meta name="twitter:image" content="https://benbachmann.com/profile_picture.jpg" />
+    <!-- Optional if you have a handle -->
+    <meta name="twitter:site" content="@benbachmann_" />
+
+    <!-- ===== Structured Data (Schema.org JSON-LD) ===== -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Ben Bachmann",
-        "url": "https://benbachmann.com",
-        "image": "https://benbachmann.com/profile_picture.jpg",
-        "sameAs": [
-          "https://x.com/@benbachmann_",
-          "https://substack.com/@ben1568308",
-          "https://www.linkedin.com/in/ben-bachmann-a2279a232",
-          "https://youtube.com/@benbachmann1634"
-        ],
-        "jobTitle": "Writer, Thinker, Scientist, Musician",
-        "description": "Writer exploring the intersection of science, music, and modern thought. Author of an upcoming novel."
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://benbachmann.com/#website",
+            "url": "https://benbachmann.com/",
+            "name": "Ben Bachmann",
+            "description": "Official website of Ben Bachmann — writer, thinker, scientist, and musician.",
+            "publisher": { "@id": "https://benbachmann.com/#person" },
+            "inLanguage": "en"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://benbachmann.com/#person",
+            "name": "Ben Bachmann",
+            "url": "https://benbachmann.com/",
+            "image": "https://benbachmann.com/profile_picture.jpg",
+            "sameAs": [
+              "https://x.com/benbachmann_",
+              "https://substack.com/@ben1568308",
+              "https://www.linkedin.com/in/ben-bachmann-a2279a232",
+              "https://youtube.com/@benbachmann1634"
+            ],
+            "jobTitle": "Writer, Thinker, Scientist, Musician",
+            "description": "Writer exploring the intersection of science, music, and modern thought. Author of an upcoming novel."
+          }
+        ]
       }
-      </script>
-      <base href="/" />
+    </script>
   </head>
+
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
