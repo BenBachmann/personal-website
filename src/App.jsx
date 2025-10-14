@@ -273,29 +273,27 @@ function Badge({ children }) {
   );
 }
 
-// Clickable tag chip used for filtering (active + removable states)
+// Tag-style chip (smaller, no arrow; active state subtly stronger)
 function TagBadge({ children, onClick, active = false, removable = false }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-sm border transition-colors ${active ? "ring-1" : ""}`}
+      className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs border transition-colors"
       style={{
-        borderColor: "var(--line)",
+        borderColor: active ? "rgba(47,118,180,0.35)" : "var(--line)",
         background: active
-          ? `linear-gradient(135deg, rgba(47,142,117,0.28), rgba(47,118,180,0.24))`
-          : `linear-gradient(135deg, var(--grad-badgeA), var(--grad-badgeB))`,
+          ? "linear-gradient(135deg, rgba(47,142,117,0.22), rgba(47,118,180,0.20))"
+          : "linear-gradient(135deg, rgba(47,142,117,0.14), rgba(47,118,180,0.12))",
         color: "var(--text)",
         boxShadow: "var(--shadow-soft)",
       }}
     >
-      <span>{children}</span>
-      {removable ? (
-        <span aria-hidden className="ml-1">×</span>
-      ) : (
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" style={{ opacity: 0.8 }} aria-hidden>
-          <path d="M7 17L17 7M10 7h7v7" />
-        </svg>
+      <span style={{ fontFamily: "var(--font)" }}>{children}</span>
+      {removable && (
+        <span aria-hidden className="ml-0.5" style={{ opacity: 0.75 }}>
+          ×
+        </span>
       )}
     </button>
   );
@@ -674,7 +672,7 @@ function WritingCard({ post, onTagClick, activeTags = [] }) {
   const isActive = (t) => activeTags.includes(t);
   return (
     <Card className="p-6 flex flex-col" style={{ background: `linear-gradient(155deg, #fff, var(--grad-cardTo))` }}>
-      <div className="flex gap-2 mb-3 flex-wrap">
+      <div className="flex gap-1.5 mb-3 flex-wrap">
         {post.tags?.map((t) => (
           <TagBadge key={t} onClick={() => onTagClick(t)} active={isActive(t)}>
             {t}
@@ -736,7 +734,7 @@ function WritingPage() {
 
       {/* Tag cloud (click to add filters) */}
       <Card className="p-4 mb-8" style={{ background: `linear-gradient(160deg, #ffffff, var(--grad-cardTo))` }}>
-        <div className="flex flex-wrap gap-2 items-center">
+        <div className="flex flex-wrap gap-1.5 items-center">
           {allTags.map((t) => (
             <TagBadge key={t} onClick={() => toggleTag(t)} active={activeTags.includes(t)}>
               {t}
@@ -746,8 +744,14 @@ function WritingPage() {
             <button
               type="button"
               onClick={resetTags}
-              className="ml-auto text-sm underline"
-              style={{ color: "var(--blue)", fontFamily: "var(--font)" }}
+              className="ml-auto inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs border transition-colors"
+              style={{
+                borderColor: "var(--line)",
+                background: "linear-gradient(135deg, rgba(47,142,117,0.10), rgba(47,118,180,0.10))",
+                color: "var(--text)",
+                boxShadow: "var(--shadow-soft)",
+                fontFamily: "var(--font)",
+              }}
             >
               Reset
             </button>
@@ -757,7 +761,7 @@ function WritingPage() {
 
       {/* Active filters (chips are removable) */}
       {activeTags.length > 0 && (
-        <div className="mb-6 flex flex-wrap gap-2 items-center">
+        <div className="mb-6 flex flex-wrap gap-1.5 items-center">
           <span className="text-sm" style={{ color: "var(--textMuted)", fontFamily: "var(--font)" }}>
             Filtered by:
           </span>
