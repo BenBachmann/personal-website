@@ -100,6 +100,44 @@ const FAVOURITES = [
   // { title: "Non-fiction Books", items: [] }
 ];
 
+// --- FAVOURITES LINK HELPERS ---
+const WIKI_PAGE = (title) =>
+  `https://en.wikipedia.org/wiki/${encodeURIComponent(title.replace(/\s+/g, "_"))}`;
+const WIKI_SEARCH = (query) =>
+  `https://en.wikipedia.org/w/index.php?search=${encodeURIComponent(query)}`;
+const IMDB_SEARCH = (title) =>
+  `https://www.imdb.com/find/?s=tt&q=${encodeURIComponent(title)}`;
+const YT_SCORE = (piece) =>
+  `https://www.youtube.com/results?search_query=${encodeURIComponent(piece + " score")}`;
+
+// Map category -> link builder
+function linkFor(category, item) {
+  const c = category.toLowerCase();
+
+  // Movies (classic + since 2000) -> IMDb
+  if (c === "movies" || c === "movies since 2000") return IMDB_SEARCH(item);
+
+  // Authors, Contemporary Authors, Philosophers, Historical Leaders -> Wikipedia page (fallback to search if needed)
+  if (
+    c === "authors" ||
+    c === "contemporary authors" ||
+    c === "philosophers" ||
+    c === "historical leaders"
+  ) {
+    return WIKI_PAGE(item);
+  }
+
+  // Orchestral / Piano pieces -> YouTube search with "score"
+  if (c === "orchestral pieces" || c === "piano pieces") return YT_SCORE(item);
+
+  // National Parks / European Cities -> Wikipedia (you preferred this to NPS)
+  if (c === "american national parks" || c === "european cities") return WIKI_PAGE(item);
+
+  // Default fallback: Wikipedia search
+  return WIKI_SEARCH(item);
+}
+
+
 const CONTACT = {
   blurb: "For speaking, editorial collaborations, or thoughtful correspondence, use the form below. I read everything.",
   socials: [
@@ -279,6 +317,38 @@ function NewsletterForm() {
     </form>
   );
 }
+
+function LinkChip({ href, children }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-sm border transition-colors"
+      style={{
+        borderColor: "var(--line)",
+        background: "linear-gradient(135deg, var(--grad-badgeA), var(--grad-badgeB))",
+        color: "var(--text)",
+        boxShadow: "var(--shadow-soft)",
+      }}
+    >
+      <span>{children}</span>
+      <svg
+        viewBox="0 0 24 24"
+        width="16"
+        height="16"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        style={{ opacity: 0.8 }}
+        aria-hidden
+      >
+        <path d="M7 17L17 7M10 7h7v7" />
+      </svg>
+    </a>
+  );
+}
+
 
 // =========================
 // LAYOUT — Responsive Navbar
@@ -609,25 +679,36 @@ function FavouritesPage() {
           Favourites
         </h1>
       </div>
+
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {FAVOURITES.map((cat) => (
-          <Card key={cat.title} className="p-6" style={{ background: `linear-gradient(155deg, #fff, var(--grad-cardTo))` }}>
-            <h3 className="font-semibold mb-3" style={{ fontSize: "var(--fs-h3)", color: "var(--text)", fontFamily: "var(--font)" }}>
+          <Card
+            key={cat.title}
+            className="p-6"
+            style={{ background: `linear-gradient(155deg, #fff, var(--grad-cardTo))` }}
+          >
+            <h3
+              className="font-semibold mb-4"
+              style={{ fontSize: "var(--fs-h3)", color: "var(--text)", fontFamily: "var(--font)" }}
+            >
               {cat.title}
             </h3>
-            <ul className="space-y-2 list-disc pl-5">
+
+            {/* Replaces bullet list with link chips */}
+            <div className="flex flex-wrap gap-2">
               {cat.items.map((item) => (
-                <li key={item} className="text-sm leading-relaxed" style={{ color: "var(--textMuted)", fontFamily: "var(--font)" }}>
+                <LinkChip key={item} href={linkFor(cat.title, item)}>
                   {item}
-                </li>
+                </LinkChip>
               ))}
-            </ul>
+            </div>
           </Card>
         ))}
       </div>
     </main>
   );
 }
+
 
 function NovelPage() {
   return (
