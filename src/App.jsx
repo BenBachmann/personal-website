@@ -62,7 +62,7 @@ const PAGES_ENABLED = {
   about: true,
   writing: true,
   novel: true,
-  favourites: true,
+  favourites: false,
   contact: true,
 };
 
@@ -75,7 +75,7 @@ const ABOUT = {
   photoUrl: "/profile_picture.jpg",
   bio: `My name is Ben Bachmann. My goal is to bring into public life a point of view that is both modern and rooted in classical thought. My background includes degrees in both the natural sciences and humanities, experience at tech startups, as well as extensive training as a classical musician. I am currently completing a novel, and I regularly post articles on a wide range of topics on Substack.`,
   highlights: [
-    { title: "Current Work", items: ["Biweekly essays on Substack", "Novel"] },
+    { title: "Current Work", items: ["Biweekly essays on Substack"] },
     { title: "Interests", items: ["TBA"] },
   ],
 };
