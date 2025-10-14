@@ -81,7 +81,7 @@ const ABOUT = {
 };
 
 const WRITING_CARDS = [
-  { title: "The Assault on Creativity", excerpt: "How our age mistakes imitation for imagination", href: "https://open.substack.com/pub/ben1568308/p/the-assault-on-creativity?r=2kziwg&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true", tags: ["creativity", "art", "technology"] }
+  { title: "The Assault on Creativity", excerpt: "How our age mistakes imitation for imagination", href: "https://open.substack.com/pub/benbachmann/p/the-assault-on-creativity?r=2kziwg&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true", tags: ["creativity", "art", "technology"] }
 ];
 
 // const NOVEL = { title: "A Novel: Upcoming", description: "Need to add description", intent: "add inspiration" };
@@ -153,9 +153,9 @@ const CONTACT = {
   blurb: "For speaking, editorial collaborations, or thoughtful correspondence, use the form below. I read everything.",
   socials: [
     { label: "X", href: "https://x.com/benbachmann_", aria: "X (Twitter)" },
-    { label: "Substack", href: "https://substack.com/@ben1568308", aria: "Substack" },
+    { label: "Substack", href: "https://substack.com/@benbachmann", aria: "Substack" },
     { label: "YouTube", href: "https://youtube.com/@benbachmann1634", aria: "YouTube" },
-    { label: "LinkedIn", href: "https://linkedin.com/ben-bachmann-a2279a232", aria: "LinkedIn" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/ben-bachmann-a2279a232/", aria: "LinkedIn" },
   ],
 };
 
