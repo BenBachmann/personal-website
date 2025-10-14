@@ -273,18 +273,18 @@ function Badge({ children }) {
   );
 }
 
-// Tag-style chip (smaller, no arrow; active state subtly stronger)
+// Tag-style chip (extra small, ~half size; no arrow)
 function TagBadge({ children, onClick, active = false, removable = false }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs border transition-colors"
+      className="inline-flex items-center gap-1 rounded-full px-1.5 py-[2px] text-[10px] border transition-colors leading-none"
       style={{
         borderColor: active ? "rgba(47,118,180,0.35)" : "var(--line)",
         background: active
-          ? "linear-gradient(135deg, rgba(47,142,117,0.22), rgba(47,118,180,0.20))"
-          : "linear-gradient(135deg, rgba(47,142,117,0.14), rgba(47,118,180,0.12))",
+          ? "linear-gradient(135deg, rgba(47,142,117,0.20), rgba(47,118,180,0.18))"
+          : "linear-gradient(135deg, rgba(47,142,117,0.10), rgba(47,118,180,0.08))",
         color: "var(--text)",
         boxShadow: "var(--shadow-soft)",
       }}
@@ -672,7 +672,7 @@ function WritingCard({ post, onTagClick, activeTags = [] }) {
   const isActive = (t) => activeTags.includes(t);
   return (
     <Card className="p-6 flex flex-col" style={{ background: `linear-gradient(155deg, #fff, var(--grad-cardTo))` }}>
-      <div className="flex gap-1.5 mb-3 flex-wrap">
+      <div className="flex gap-1 mb-2 flex-wrap">
         {post.tags?.map((t) => (
           <TagBadge key={t} onClick={() => onTagClick(t)} active={isActive(t)}>
             {t}
@@ -732,46 +732,17 @@ function WritingPage() {
         </div>
       </div>
 
-      {/* Tag cloud (click to add filters) */}
-      <Card className="p-4 mb-8" style={{ background: `linear-gradient(160deg, #ffffff, var(--grad-cardTo))` }}>
-        <div className="flex flex-wrap gap-1.5 items-center">
-          {allTags.map((t) => (
-            <TagBadge key={t} onClick={() => toggleTag(t)} active={activeTags.includes(t)}>
-              {t}
-            </TagBadge>
-          ))}
-          {activeTags.length > 0 && (
-            <button
-              type="button"
-              onClick={resetTags}
-              className="ml-auto inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs border transition-colors"
-              style={{
-                borderColor: "var(--line)",
-                background: "linear-gradient(135deg, rgba(47,142,117,0.10), rgba(47,118,180,0.10))",
-                color: "var(--text)",
-                boxShadow: "var(--shadow-soft)",
-                fontFamily: "var(--font)",
-              }}
-            >
-              Reset
-            </button>
-          )}
-        </div>
-      </Card>
-
-      {/* Active filters (chips are removable) */}
       {activeTags.length > 0 && (
-        <div className="mb-6 flex flex-wrap gap-1.5 items-center">
-          <span className="text-sm" style={{ color: "var(--textMuted)", fontFamily: "var(--font)" }}>
-            Filtered by:
-          </span>
+        <div className="mb-4 flex flex-wrap gap-1">
           {activeTags.map((t) => (
             <TagBadge key={t} onClick={() => removeTag(t)} active removable>
               {t}
             </TagBadge>
           ))}
+          <TagBadge onClick={resetTags}>Clear</TagBadge>
         </div>
       )}
+
 
       {/* Cards */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
