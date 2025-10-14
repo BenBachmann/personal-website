@@ -109,6 +109,8 @@ const IMDB_SEARCH = (title) =>
   `https://www.imdb.com/find/?s=tt&q=${encodeURIComponent(title)}`;
 const YT_SCORE = (piece) =>
   `https://www.youtube.com/results?search_query=${encodeURIComponent(piece + " score")}`;
+const ALLTRAILS_SEARCH = (park) =>
+  `https://www.alltrails.com/search?q=${encodeURIComponent(park + " National Park")}`;
 
 // Map category -> link builder
 function linkFor(category, item) {
@@ -117,7 +119,7 @@ function linkFor(category, item) {
   // Movies (classic + since 2000) -> IMDb
   if (c === "movies" || c === "movies since 2000") return IMDB_SEARCH(item);
 
-  // Authors, Contemporary Authors, Philosophers, Historical Leaders -> Wikipedia page (fallback to search if needed)
+  // Authors, Contemporary Authors, Philosophers, Historical Leaders -> Wikipedia
   if (
     c === "authors" ||
     c === "contemporary authors" ||
@@ -130,13 +132,15 @@ function linkFor(category, item) {
   // Orchestral / Piano pieces -> YouTube search with "score"
   if (c === "orchestral pieces" || c === "piano pieces") return YT_SCORE(item);
 
-  // National Parks / European Cities -> Wikipedia (you preferred this to NPS)
-  if (c === "american national parks" || c === "european cities") return WIKI_PAGE(item);
+  // American National Parks -> AllTrails
+  if (c === "american national parks") return ALLTRAILS_SEARCH(item);
 
-  // Default fallback: Wikipedia search
+  // European Cities -> Wikipedia (you preferred this)
+  if (c === "european cities") return WIKI_PAGE(item);
+
+  // Fallback
   return WIKI_SEARCH(item);
 }
-
 
 const CONTACT = {
   blurb: "For speaking, editorial collaborations, or thoughtful correspondence, use the form below. I read everything.",
