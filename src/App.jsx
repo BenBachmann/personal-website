@@ -273,6 +273,34 @@ function Badge({ children }) {
   );
 }
 
+// Clickable tag chip used for filtering (active + removable states)
+function TagBadge({ children, onClick, active = false, removable = false }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-sm border transition-colors ${active ? "ring-1" : ""}`}
+      style={{
+        borderColor: "var(--line)",
+        background: active
+          ? `linear-gradient(135deg, rgba(47,142,117,0.28), rgba(47,118,180,0.24))`
+          : `linear-gradient(135deg, var(--grad-badgeA), var(--grad-badgeB))`,
+        color: "var(--text)",
+        boxShadow: "var(--shadow-soft)",
+      }}
+    >
+      <span>{children}</span>
+      {removable ? (
+        <span aria-hidden className="ml-1">×</span>
+      ) : (
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" style={{ opacity: 0.8 }} aria-hidden>
+          <path d="M7 17L17 7M10 7h7v7" />
+        </svg>
+      )}
+    </button>
+  );
+}
+
 function Icon({ name, className, style }) {
   // Simple inline icons for hamburger/close
   if (name === "menu") {
@@ -642,12 +670,15 @@ function AboutPage() {
   );
 }
 
-function WritingCard({ post }) {
+function WritingCard({ post, onTagClick, activeTags = [] }) {
+  const isActive = (t) => activeTags.includes(t);
   return (
     <Card className="p-6 flex flex-col" style={{ background: `linear-gradient(155deg, #fff, var(--grad-cardTo))` }}>
-      <div className="flex gap-2 mb-3">
+      <div className="flex gap-2 mb-3 flex-wrap">
         {post.tags?.map((t) => (
-          <Badge key={t}>{t}</Badge>
+          <TagBadge key={t} onClick={() => onTagClick(t)} active={isActive(t)}>
+            {t}
+          </TagBadge>
         ))}
       </div>
       <h3 className="font-semibold" style={{ fontSize: "1.125rem", color: "var(--text)", fontFamily: "var(--font)" }}>
@@ -666,21 +697,93 @@ function WritingCard({ post }) {
 }
 
 function WritingPage() {
+  const [activeTags, setActiveTags] = useState([]);
+
+  // All unique tags for the cloud
+  const allTags = useMemo(
+    () => Array.from(new Set(WRITING_CARDS.flatMap((p) => p.tags || []))).sort(),
+    []
+  );
+
+  // Click a tag to add it to the active filter set (no duplicates)
+  const toggleTag = (tag) =>
+    setActiveTags((prev) => (prev.includes(tag) ? prev : [...prev, tag]));
+
+  // Remove a single tag from the active filters
+  const removeTag = (tag) => setActiveTags((prev) => prev.filter((t) => t !== tag));
+
+  // Reset: show all essays again
+  const resetTags = () => setActiveTags([]);
+
+  // Filter posts: keep only posts that include *every* active tag (AND logic)
+  const filtered = useMemo(() => {
+    if (activeTags.length === 0) return WRITING_CARDS;
+    return WRITING_CARDS.filter((p) =>
+      activeTags.every((t) => (p.tags || []).includes(t))
+    );
+  }, [activeTags]);
+
   return (
     <main className="mx-auto max-w-6xl px-4 py-12 sm:py-16">
       <div className="flex items-end justify-between mb-6">
         <h1 className="font-semibold" style={{ fontSize: "var(--fs-h1)", color: "var(--text)", fontFamily: "var(--font)" }}>
           Writing
         </h1>
+        <div className="text-sm" style={{ color: "var(--textMuted)", fontFamily: "var(--font)" }}>
+          {activeTags.length === 0 ? "Browse all essays" : `${filtered.length} match(es)`}
+        </div>
       </div>
+
+      {/* Tag cloud (click to add filters) */}
+      <Card className="p-4 mb-8" style={{ background: `linear-gradient(160deg, #ffffff, var(--grad-cardTo))` }}>
+        <div className="flex flex-wrap gap-2 items-center">
+          {allTags.map((t) => (
+            <TagBadge key={t} onClick={() => toggleTag(t)} active={activeTags.includes(t)}>
+              {t}
+            </TagBadge>
+          ))}
+          {activeTags.length > 0 && (
+            <button
+              type="button"
+              onClick={resetTags}
+              className="ml-auto text-sm underline"
+              style={{ color: "var(--blue)", fontFamily: "var(--font)" }}
+            >
+              Reset
+            </button>
+          )}
+        </div>
+      </Card>
+
+      {/* Active filters (chips are removable) */}
+      {activeTags.length > 0 && (
+        <div className="mb-6 flex flex-wrap gap-2 items-center">
+          <span className="text-sm" style={{ color: "var(--textMuted)", fontFamily: "var(--font)" }}>
+            Filtered by:
+          </span>
+          {activeTags.map((t) => (
+            <TagBadge key={t} onClick={() => removeTag(t)} active removable>
+              {t}
+            </TagBadge>
+          ))}
+        </div>
+      )}
+
+      {/* Cards */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {WRITING_CARDS.map((post) => (
-          <WritingCard key={post.title} post={post} />
+        {filtered.map((post) => (
+          <WritingCard
+            key={post.title}
+            post={post}
+            onTagClick={toggleTag}
+            activeTags={activeTags}
+          />
         ))}
       </div>
     </main>
   );
 }
+
 
 function FavouritesPage() {
   return (
