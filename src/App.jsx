@@ -109,17 +109,18 @@ const IMDB_SEARCH = (title) =>
   `https://www.imdb.com/find/?s=tt&q=${encodeURIComponent(title)}`;
 const YT_SCORE = (piece) =>
   `https://www.youtube.com/results?search_query=${encodeURIComponent(piece + " score")}`;
-const ALLTRAILS_SEARCH = (park) =>
-  `https://www.alltrails.com/search?q=${encodeURIComponent(park + " National Park")}`;
 
-// Map category -> link builder
+// Optional alternative: National Park Foundation search (nice visuals)
+// const NPF_SEARCH = (park) =>
+//   `https://www.nationalparks.org/search?search=${encodeURIComponent(park + " National Park")}`;
+
 function linkFor(category, item) {
   const c = category.toLowerCase();
 
   // Movies (classic + since 2000) -> IMDb
   if (c === "movies" || c === "movies since 2000") return IMDB_SEARCH(item);
 
-  // Authors, Contemporary Authors, Philosophers, Historical Leaders -> Wikipedia
+  // Authors / Contemporary Authors / Philosophers / Historical Leaders -> Wikipedia page
   if (
     c === "authors" ||
     c === "contemporary authors" ||
@@ -129,13 +130,19 @@ function linkFor(category, item) {
     return WIKI_PAGE(item);
   }
 
-  // Orchestral / Piano pieces -> YouTube search with "score"
+  // Music -> YouTube search with "score"
   if (c === "orchestral pieces" || c === "piano pieces") return YT_SCORE(item);
 
-  // American National Parks -> AllTrails
-  if (c === "american national parks") return ALLTRAILS_SEARCH(item);
+  // American National Parks -> Wikipedia (append " National Park" to avoid wrong pages)
+  if (c === "american national parks") {
+    const query = `${item} National Park`;
+    // Prefer the direct page URL; if it 404s for some edge case, the user still lands on a sensible search.
+    return WIKI_PAGE(query);
+    // If you later prefer National Park Foundation visuals, switch to:
+    // return NPF_SEARCH(item);
+  }
 
-  // European Cities -> Wikipedia (you preferred this)
+  // European Cities -> Wikipedia page
   if (c === "european cities") return WIKI_PAGE(item);
 
   // Fallback
