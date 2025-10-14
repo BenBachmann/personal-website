@@ -84,7 +84,7 @@ const WRITING_CARDS = [
   { title: "The Assault on Creativity", excerpt: "How our age mistakes imitation for imagination", href: "https://open.substack.com/pub/ben1568308/p/the-assault-on-creativity?r=2kziwg&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true", tags: ["creativity", "art", "technology"] }
 ];
 
-const NOVEL = { title: "A Novel: Upcoming", description: "Need to add description", intent: "add inspiration" };
+// const NOVEL = { title: "A Novel: Upcoming", description: "Need to add description", intent: "add inspiration" };
 
 const FAVOURITES = [
   { title: "Movies", items: ["Lawrence of Arabia","Barry Lyndon","Brief Encounter","Vertigo","The Bridge on the River Kwai","Tokyo Story"] },
@@ -190,7 +190,7 @@ const ROUTES = [
   { id: "home",       label: "Home",                 path: "/" },
   { id: "about",      label: "About",                path: "/about" },
   { id: "writing",    label: "Writing",              path: "/writing" },
-  { id: "novel",      label: "A Novel: Upcoming",    path: "/novel" },
+  // { id: "novel",      label: "A Novel: Upcoming",    path: "/novel" },
   { id: "favourites", label: "Favourites",           path: "/favourites" },
   { id: "contact",    label: "Contact",              path: "/contact" },
 ];
