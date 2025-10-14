@@ -591,9 +591,6 @@ function WritingPage() {
         <h1 className="font-semibold" style={{ fontSize: "var(--fs-h1)", color: "var(--text)", fontFamily: "var(--font)" }}>
           Writing
         </h1>
-        <div className="text-sm" style={{ color: "var(--textMuted)", fontFamily: "var(--font)" }}>
-          Minimal, card-first layout
-        </div>
       </div>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {WRITING_CARDS.map((post) => (
@@ -611,9 +608,6 @@ function FavouritesPage() {
         <h1 className="font-semibold" style={{ fontSize: "var(--fs-h1)", color: "var(--text)", fontFamily: "var(--font)" }}>
           Favourites
         </h1>
-        <div className="text-sm" style={{ color: "var(--textMuted)", fontFamily: "var(--font)" }}>
-          A living index of things I return to
-        </div>
       </div>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {FAVOURITES.map((cat) => (
