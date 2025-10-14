@@ -273,29 +273,27 @@ function Badge({ children }) {
   );
 }
 
-// Tag-style chip (extra small, ~half size; no arrow)
+// Clickable tag chip used for filtering
 function TagBadge({ children, onClick, active = false, removable = false }) {
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="inline-flex items-center gap-1 rounded-full px-1.5 py-[2px] text-[10px] border transition-colors leading-none"
-      style={{
-        borderColor: active ? "rgba(47,118,180,0.35)" : "var(--line)",
-        background: active
-          ? "linear-gradient(135deg, rgba(47,142,117,0.20), rgba(47,118,180,0.18))"
-          : "linear-gradient(135deg, rgba(47,142,117,0.10), rgba(47,118,180,0.08))",
-        color: "var(--text)",
-        boxShadow: "var(--shadow-soft)",
-      }}
-    >
-      <span style={{ fontFamily: "var(--font)" }}>{children}</span>
-      {removable && (
-        <span aria-hidden className="ml-0.5" style={{ opacity: 0.75 }}>
-          ×
-        </span>
-      )}
-    </button>
+  <button
+  type="button"
+  onClick={onClick}
+  className="inline-flex items-center gap-0.5 rounded-full px-1 py-[1px] text-[8px] border transition-colors leading-none"
+  style={{
+  borderColor: active ? "rgba(47,118,180,0.35)" : "var(--line)",
+  background: active
+  ? "linear-gradient(135deg, rgba(47,142,117,0.18), rgba(47,118,180,0.15))"
+  : "linear-gradient(135deg, rgba(47,142,117,0.08), rgba(47,118,180,0.06))",
+  color: "var(--text)",
+  boxShadow: "var(--shadow-soft)",
+  }}
+  >
+  <span style={{ fontFamily: "var(--font)" }}>{children}</span>
+  {removable && (
+  <span aria-hidden className="ml-[1px]" style={{ opacity: 0.7 }}>×</span>
+  )}
+  </button>
   );
 }
 
