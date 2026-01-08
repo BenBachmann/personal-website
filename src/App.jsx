@@ -58,12 +58,12 @@ const THEME = {
 // PAGES ENABLED — EDIT HERE
 // =========================
 const PAGES_ENABLED = {
-  home: true,
-  about: true,
-  writing: true,
-  novel: true,
+  home: false,
+  about: false,
+  writing: false,
+  novel: false,
   favourites: false,
-  contact: true,
+  contact: false,
 };
 
 // =========================
