@@ -532,7 +532,7 @@ function Footer() {
 function HomePage({ navigateTo }) {
   return (
     <main>
-      <section className="relative overflow-hidden" style={{ background: `linear-gradient(180deg, var(--grad-sectionA), transparent), var(--background)` }}>
+      {/* <section className="relative overflow-hidden" style={{ background: `linear-gradient(180deg, var(--grad-sectionA), transparent), var(--background)` }}>
         <div className="mx-auto max-w-6xl px-4 py-16 sm:py-24">
           <Card className="p-10 sm:p-12" style={{ background: `linear-gradient(160deg, var(--grad-cardFrom), var(--grad-cardTo))` }}>
             <div className="max-w-3xl">
@@ -596,7 +596,7 @@ function HomePage({ navigateTo }) {
             ))}
           </div>
         </section>
-      )}
+      )} */}
     </main>
   );
 }
@@ -604,7 +604,7 @@ function HomePage({ navigateTo }) {
 function AboutPage() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-12 sm:py-16">
-      {/* <section>
+      <section>
         <Card className="p-4 sm:p-6" style={{ background: `linear-gradient(150deg, var(--grad-cardFrom), #ffffff)` }}>
           <div className="grid gap-6 md:grid-cols-5 items-center">
             <div className="md:col-span-2 overflow-hidden rounded-2xl">
@@ -637,7 +637,7 @@ function AboutPage() {
             </ul>
           </Card>
         ))}
-      </section> */}
+      </section>
     </main>
   );
 }
