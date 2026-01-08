@@ -69,7 +69,7 @@ const PAGES_ENABLED = {
 // =========================
 // CONTENT — EDIT HERE
 // =========================
-const HOME_HERO = { name: "Ben Bachmann", tagline: "Writer, Thinker, Scientist, Musician" };
+const HOME_HERO = { name: "Ben Bachmann", tagline: "" };
 
 const ABOUT = {
   photoUrl: "/profile_picture.jpg",
@@ -81,7 +81,7 @@ const ABOUT = {
 };
 
 const WRITING_CARDS = [
-  { title: "The Assault on Creativity", excerpt: "How our age mistakes imitation for imagination", href: "https://open.substack.com/pub/benbachmann/p/the-assault-on-creativity?r=2kziwg&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true", tags: ["creativity", "art", "technology"] }
+  // { title: "The Assault on Creativity", excerpt: "How our age mistakes imitation for imagination", href: "https://open.substack.com/pub/benbachmann/p/the-assault-on-creativity?r=2kziwg&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true", tags: ["creativity", "art", "technology"] }
 ];
 
 // const NOVEL = { title: "A Novel: Upcoming", description: "Need to add description", intent: "add inspiration" };
@@ -604,7 +604,7 @@ function HomePage({ navigateTo }) {
 function AboutPage() {
   return (
     <main className="mx-auto max-w-6xl px-4 py-12 sm:py-16">
-      <section>
+      {/* <section>
         <Card className="p-4 sm:p-6" style={{ background: `linear-gradient(150deg, var(--grad-cardFrom), #ffffff)` }}>
           <div className="grid gap-6 md:grid-cols-5 items-center">
             <div className="md:col-span-2 overflow-hidden rounded-2xl">
@@ -637,7 +637,7 @@ function AboutPage() {
             </ul>
           </Card>
         ))}
-      </section>
+      </section> */}
     </main>
   );
 }
